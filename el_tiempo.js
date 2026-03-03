@@ -22,6 +22,7 @@ document.getElementById("buscador").addEventListener("keypress", function(event)
 function buscarCiudad() {
     let ciudad = document.getElementById("buscador").value;
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=fbcd55bb85cb1b4f098520ba3044ef5d&units=metric&lang=es`;
+    let urlPrediccion = `https://api.openweathermap.org/data/2.5/forecast?q=${ciudad}&appid=fbcd55bb85cb1b4f098520ba3044ef5d&units=metric&lang=es`;
 
     fetch(url)
         .then(res => res.json())
@@ -29,6 +30,13 @@ function buscarCiudad() {
             pintarRespuesta(datos);
         })
         .catch(error => console.log("Error:", error));
+
+    fetch(urlPrediccion)
+        .then(res => res.json())
+        .then(datos => {
+            console.log("Datos de predicción:", datos);
+            prediccionClima(datos);
+        })
 }
 
 /**
@@ -40,6 +48,7 @@ function pintarRespuesta(infoClima) {
     cuerpo.style.backgroundRepeat = "no-repeat";
     cuerpo.style.backgroundSize = "cover";
     cuerpo.style.backgroundAttachment = "fixed";
+    
     let estaNublado = false;
     let contenedor = document.getElementById("respuesta");
     // Obtendra el ID del clima indicado en la API.
@@ -70,7 +79,7 @@ function pintarRespuesta(infoClima) {
 
         estaNublado = false;
 
-    } else if (climaPrincipal === "Rain") {
+    } else if (climaPrincipal === "Rain" || climaPrincipal === "Drizzle" || climaPrincipal === "Shower rain") {
         contenedor.innerHTML += `<img src="img/Lluvia.png" alt="Dia Lluvioso">`;
         cuerpo.style.backgroundImage = "url('img/fondoLluvia.png')";
 
@@ -99,9 +108,80 @@ function pintarRespuesta(infoClima) {
         buscar.style.background= "rgba(20, 14, 19, 0.2)"; 
         respuesta.style.background = "rgba(20, 14, 19, 0.2)";
         buscador.style.background = "rgba(20, 14, 19, 0.2)";
+        prediccion.style.background = "rgba(20, 14, 19, 0.2)";
+        otrosDatos.style.background = "rgba(20, 14, 19, 0.2)";
     } else{
         buscador.style.background = "rgba(255, 255, 255, 0.2)";
         contenedor.style.background = "rgba(255, 255, 255, 0.2)";
         buscar.style.background = "rgba(255, 255, 255, 0.2)";
+        prediccion.style.background = "rgba(255, 255, 255, 0.2)";
+        otrosDatos.style.background = "rgba(255, 255, 255, 0.2)";
     }
+
+    let ampliarInformacion = document.getElementById("otrosDatos");
+
+    ampliarInformacion.textContent = "";
+
+    ampliarInformacion.innerHTML = `
+        <p>Humedad: ${infoClima.main.humidity} </p> 
+        <p>Sensacion Termica: ${infoClima.main.feels_like} </p> 
+        <p>Temperatura maxima: ${infoClima.main.temp_max} </p> 
+        <p>Temperatura minima: ${infoClima.main.temp_min} </p> 
+    `;
+
 }
+
+/**
+ * Imprime los datos climaticos de los proximos 4 dias de la localizacion indicada.
+ * 
+ * @param {*} datos buscados con {@link buscarCiudad()}
+ */
+function prediccionClima(datos) {
+
+    let tabla = document.getElementById("prediccion");
+    
+    
+    const pronosticos = datos.list.filter(item => item.dt_txt.includes("12:00:00")).slice(1);
+
+    let htmlTabla = "<table><tr>";
+
+    pronosticos.forEach(item => {
+        let fecha = new Date(item.dt * 1000);
+        let nombreDia = fecha.toLocaleDateString('es-ES', { weekday: 'short' });
+        htmlTabla += `<th>${nombreDia.toUpperCase()}</th>`;
+    });
+
+    htmlTabla += "</tr><tr>";
+
+    pronosticos.forEach(item => {
+        let temp = Math.round(item.main.temp);
+        let climaDia = item.weather[0].main;
+        let urlIcono; 
+
+        if(climaDia === "Clear"){
+            urlIcono = "img/soleado.png";
+    
+        } else if (climaDia === "Clouds") {
+            urlIcono = "img/Nubes.png";
+    
+        } else if (climaDia === "Rain" || climaDia === "Drizzle" || climaDia === "Shower rain") {
+            urlIcono = "img/Lluvia.png";
+    
+        } else if (climaDia === "Thunderstorm") {
+            urlIcono = "img/Tormenta.png";
+    
+        } else if (climaDia === "Snow") {
+            urlIcono = "img/Nieve.png";
+    
+        } else if (climaDia === "Mist" || climaDia === "Fog" || climaDia === "Haze") {
+            urlIcono = "img/Niebla.png";
+        }
+        
+        htmlTabla += `<td><img src="${urlIcono}"><br>${temp}°C</td>`;
+    });
+
+    htmlTabla += "</tr></table>";
+    tabla.innerHTML = htmlTabla;
+}
+
+

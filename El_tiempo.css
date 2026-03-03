@@ -128,3 +128,71 @@ body{
     right: 150px;
 }
 
+#prediccion {
+    position: absolute;
+    top: 250px;
+    left: 20px;
+    width: 500px;
+    height: 250px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(25px);
+}
+
+
+#prediccion table{
+    position: relative;
+    top: 30px;
+    width: 100%;
+    max-width: 300px;
+    color: white;
+}
+
+#prediccion th, #prediccion td {
+    padding: 10px;
+    text-align: center;
+}
+
+#prediccion td img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+#otrosDatos{
+    position: absolute;
+    top: 250px;
+    right: 20px;
+
+    width: 500px;
+    height: 250px;
+
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(25px);
+
+}
+
+#otrosDatos h5{
+    position: relative;
+    color: white;
+    top: 10px;
+    
+    text-align: center;
+    font-weight: bold;
+}
+
+
+#otrosDatos p{
+    position: relative;
+    color: white;
+    top: 40px;
+    left: 20px;
+    
+    text-align: justify;
+    font-weight: bold;
+}
+
+
