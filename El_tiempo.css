@@ -1,7 +1,7 @@
 /* ==========================================================================
    PROYECTO: El Tiempo
    AUTOR:    jjossuee008
-   VERSION:  1.0
+   VERSION:  2.0
    ========================================================================== */
 
 /* 1. Define la estetica de la base */
@@ -128,6 +128,7 @@ body{
     right: 150px;
 }
 
+/* 4.4.1 Define la estetica del menu que indicara los tiempos de los proximos 5 dias */
 #prediccion {
     position: absolute;
     top: 250px;
@@ -140,7 +141,7 @@ body{
     backdrop-filter: blur(25px);
 }
 
-
+/** 4.4.2 Define la estetica de la tabla incluida en la pestaña predriccion */
 #prediccion table{
     position: relative;
     top: 30px;
@@ -149,17 +150,20 @@ body{
     color: white;
 }
 
+/** 4.4.3 Define la estetica de los elementos de la tabla */
 #prediccion th, #prediccion td {
     padding: 10px;
     text-align: center;
 }
 
+/** 4.4.4 Define la estetica de las imagenes de la tabla */
 #prediccion td img {
     width: 100px;
     height: auto;
     margin-bottom: 5px;
 }
 
+/** 4.5.1 Define la estetica de la pestaña donde se indican otros datos del tiempo */
 #otrosDatos{
     position: absolute;
     top: 250px;
@@ -175,6 +179,7 @@ body{
 
 }
 
+/** 4.5.2 Define la estetica del titulo de la pestaña otros datos */
 #otrosDatos h5{
     position: relative;
     color: white;
@@ -184,7 +189,7 @@ body{
     font-weight: bold;
 }
 
-
+/** 4.5.3 Define la estetica del texto de la pestaña otros datos */
 #otrosDatos p{
     position: relative;
     color: white;
@@ -194,5 +199,7 @@ body{
     text-align: justify;
     font-weight: bold;
 }
+
+
 
 
