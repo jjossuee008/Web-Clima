@@ -1,3 +1,15 @@
+body {
+    margin: 0;
+    overflow-x: hidden; /* Esto elimina el espacio blanco a la derecha */
+    width: 100vw;       /* Asegura que el cuerpo ocupe exactamente la pantalla */
+}
+
+/* Quita los márgenes por defecto que empujan el diseño */
+.menulateralAbierto h1, h2, h3, h5, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
 #abrirMenu{
     position:absolute;
     bottom: 0px;
@@ -11,16 +23,17 @@
     backdrop-filter: blur(25px);
 }
 
-.menuLateralAbierto{
-    position:absolute;
-    right: 0px;
-
-    height: 100%;
+.menuLateralAbierto {
+    position: fixed; 
+    top: 0;         
+    right: 0;
+    height: 100vh;   
     width: 400px;
+    z-index: 2000;   
 
-    border-radius: 5px;
     background: rgba(255, 255, 255, 0.15); 
     backdrop-filter: blur(25px);
+    transition: transform 0.3s ease; 
 }
 
 #botonFavoritos{
@@ -32,4 +45,23 @@
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.15); 
     backdrop-filter: blur(25px);
+}
+
+
+.menuLateralAbierto h3{
+    position: relative;
+    top: 100px;
+    left: 5%;
+    color: white;
+}
+
+.menuLateralAbierto ul{
+    position: relative;
+    top: 10%;
+    color: white;
+}
+
+.menuLateralAbierto p{
+    position: relative;
+    top:13%;
 }

@@ -7,6 +7,9 @@
  * @license MIT
  */
 
+ let imgFav = document.getElementById("botonFavoritos").querySelector("img");
+ let botonBuscar = document.getElementById("buscar");
+
 /** 
  * Escucha la tecla "Enter" en el input para disparar la búsqueda.
  */
@@ -23,7 +26,8 @@ function buscarCiudad() {
     let ciudad = document.getElementById("buscador").value;
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=fbcd55bb85cb1b4f098520ba3044ef5d&units=metric&lang=es`;
     let urlPrediccion = `https://api.openweathermap.org/data/2.5/forecast?q=${ciudad}&appid=fbcd55bb85cb1b4f098520ba3044ef5d&units=metric&lang=es`;
-
+    
+    imgFav.src = "img/favoritoOFF.png";
     fetch(url)
         .then(res => res.json())
         .then(datos => {
@@ -37,6 +41,7 @@ function buscarCiudad() {
             console.log("Datos de predicción:", datos);
             prediccionClima(datos);
         })
+    
 }
 
 /**

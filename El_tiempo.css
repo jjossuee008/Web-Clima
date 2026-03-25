@@ -29,6 +29,7 @@ body{
 #sup h1{
     position: relative;
 
+    padding: 10px;
     text-align: center;
     color: rgb(243, 243, 35);
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -119,6 +120,7 @@ body{
 #respuesta *{
     color: white;
     text-align: center;
+    padding: 10px;
 }
 
 /* 4.3.2 Define la estetica de las imagenes que esten en el cuadro de busqueda */
@@ -198,6 +200,8 @@ body{
     
     text-align: justify;
     font-weight: bold;
+
+    padding: 10px;
 }
 
 
